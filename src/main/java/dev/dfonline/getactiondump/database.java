@@ -17,6 +17,6 @@ public class database {
     }
 
     public static void save() throws IOException{
-        FileManager.WriteFile(FileManager.Path().resolve("/db.json"),Data);
+        FileManager.WriteFile("db.json",Data.replaceAll("\\n$",""));
     }
 }
