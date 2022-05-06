@@ -9,6 +9,7 @@ import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.c2s.play.KeepAliveC2SPacket;
 import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.KeepAliveS2CPacket;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -35,6 +36,7 @@ public class ChatMessage {
 					if(GetActionDump.LastPing == 1000){
 						GetActionDump.MC.player.networkHandler.sendPacket(new KeepAliveC2SPacket(0));
 						GetActionDump.MC.player.networkHandler.sendPacket(new HandSwingC2SPacket(Hand.MAIN_HAND));
+						GetActionDump.MC.player.networkHandler.onKeepAlive(new KeepAliveS2CPacket(((long) (Math.random() * 10000))));
 						GetActionDump.LOGGER.info("Packet test");
 						GetActionDump.LastPing = 0;
 					}

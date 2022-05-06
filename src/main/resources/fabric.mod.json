@@ -3,8 +3,8 @@
   "id": "getactiondump",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Get Action Dump",
+  "description": "Records the action dump data from Development Nodes on diamondfire (/dumpactioninfo)",
   "authors": [
     "GeorgeRNG"
   ],
