@@ -12,6 +12,7 @@ public class GetActionDump implements ModInitializer {
 	public static final String ModId = "getactiondump";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ModId);
 	public static final MinecraftClient MC = MinecraftClient.getInstance();
+	public static int LastPing = 0;
 
 	public static database db;
 
