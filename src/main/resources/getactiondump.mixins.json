@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "ChatMessage"
+    "ChatMessage",
+    "handlePackets",
+    "InGameHud"
   ],
   "injectors": {
     "defaultRequire": 1

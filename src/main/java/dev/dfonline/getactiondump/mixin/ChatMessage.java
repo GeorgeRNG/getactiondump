@@ -6,12 +6,8 @@ import dev.dfonline.getactiondump.GetActionDump;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.MessageType;
-import net.minecraft.network.packet.c2s.play.KeepAliveC2SPacket;
-import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
-import net.minecraft.network.packet.s2c.play.KeepAliveS2CPacket;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,22 +23,15 @@ public class ChatMessage {
 	@Inject(method = "onGameMessage", at = @At("HEAD"), cancellable = true)
 	private void OnChatMessage(GameMessageS2CPacket packet, CallbackInfo ci){
 		String message = packet.getMessage().getString();
-//		if(packet.getType() == MessageType.SYSTEM){
+		if(packet.getType() == MessageType.SYSTEM){
 			if(GetActionDump.db != null){ // while the actiondump is active
 				if(message.startsWith(" ") || message.equals("}")){ // if it's anything related to the database, add it.
 					ci.cancel();
 					database.addData(message);
-					GetActionDump.LastPing++;
-					if(GetActionDump.LastPing == 1000){
-						GetActionDump.MC.player.networkHandler.sendPacket(new KeepAliveC2SPacket(0));
-						GetActionDump.MC.player.networkHandler.sendPacket(new HandSwingC2SPacket(Hand.MAIN_HAND));
-						GetActionDump.MC.player.networkHandler.onKeepAlive(new KeepAliveS2CPacket(((long) (Math.random() * 10000))));
-						GetActionDump.LOGGER.info("Packet test");
-						GetActionDump.LastPing = 0;
-					}
+					GetActionDump.overlayText = ("§dActionDump Info:\n §0§l| §eLines: §b" + database.Lines + "\n §0§l| §eSize: §b" + database.Length + "\n §0§l| §eTime: §b" + ((float)(System.currentTimeMillis() - database.startTime.getTime()) / 1000)).split("\n");
 				}
 				if(message.equals("}")){ // to end the actiondump scanning, previous if block should have ran.
-					GetActionDump.MC.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("ActionDump over. It took " + ((System.currentTimeMillis() - database.startTime.getTime()) / 1000) + " seconds."), Util.NIL_UUID);
+					GetActionDump.MC.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("ActionDump over. It took " + ((float)(System.currentTimeMillis() - database.startTime.getTime()) / 1000) + " seconds."), Util.NIL_UUID);
 					try{
 						database.save();
 					}
@@ -62,6 +51,6 @@ public class ChatMessage {
 					ci.cancel();
 				}
 			}
-//		}
+		}
 	}
 }
