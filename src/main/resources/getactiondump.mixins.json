@@ -8,7 +8,8 @@
   "client": [
     "ChatMessage",
     "handlePackets",
-    "InGameHud"
+    "InGameHud",
+    "MinecraftDisconnection"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,6 +2,7 @@ package dev.dfonline.getactiondump.mixin;
 
 import dev.dfonline.getactiondump.GetActionDump;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
@@ -13,33 +14,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.minecraft.client.network.ClientPlayNetworkHandler.DISCONNECT_LOST_TEXT;
-
 @Mixin(ClientPlayNetworkHandler.class)
 public class handlePackets {
 
-    @Inject(method = "onKeepAlive", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onKeepAlive", at = @At("HEAD"))
     private void reportKeepAlive(KeepAliveS2CPacket packet, CallbackInfo ci){
         if(GetActionDump.reportKeepAlives){
             GetActionDump.MC.player.sendMessage(new LiteralText("A keepAlive (id " + packet.getId() + ") was just sent. Now might be ideal to do /actiondump."), false);
         }
     }
 
-    @Inject(method = "sendPacket", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "sendPacket", at = @At("HEAD"))
     private void sendPacket(Packet packet, CallbackInfo ci){
         if(GetActionDump.db != null){
             ci.cancel();
         }
     }
 
-    @Inject(method = "onDisconnect", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onDisconnect", at = @At("HEAD"))
     private void onDisconnect(DisconnectS2CPacket packet, CallbackInfo ci){
         GetActionDump.db = null;
-    }
-
-    @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
-    private void onDisconnected(Text reason, CallbackInfo ci){
-        ci.cancel();
-        GetActionDump.MC.setScreen(new DisconnectedScreen(this.loginScreen, new LiteralText(""), reason));
     }
 }

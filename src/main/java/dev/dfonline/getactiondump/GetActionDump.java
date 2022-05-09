@@ -1,9 +1,9 @@
 package dev.dfonline.getactiondump;
 
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.LiteralText;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +19,7 @@ public class GetActionDump implements ModInitializer {
 	public static database db;
 	public static boolean reportKeepAlives = false;
 	public static String[] overlayText = new String[]{"test", "test2"};
+	public static Screen DisconnectMenu;
 
 	@Override
 	public void onInitialize() {
@@ -51,5 +52,9 @@ public class GetActionDump implements ModInitializer {
 			MC.player.sendChatMessage("/dumpactioninfo -c");
 		else
 			MC.player.sendChatMessage("/dumpactioninfo");
+	}
+
+	public static void setMenu(Screen menu){
+		DisconnectMenu = menu;
 	}
 }
