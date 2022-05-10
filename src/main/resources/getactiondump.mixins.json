@@ -9,7 +9,8 @@
     "ChatMessage",
     "handlePackets",
     "InGameHud",
-    "MinecraftDisconnection"
+    "MinecraftDisconnection",
+    "onExit"
   ],
   "injectors": {
     "defaultRequire": 1

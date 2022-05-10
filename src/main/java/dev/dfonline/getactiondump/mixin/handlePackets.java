@@ -1,14 +1,10 @@
 package dev.dfonline.getactiondump.mixin;
 
 import dev.dfonline.getactiondump.GetActionDump;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.Packet;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import net.minecraft.network.packet.s2c.play.KeepAliveS2CPacket;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,6 +16,7 @@ public class handlePackets {
     @Inject(method = "onKeepAlive", at = @At("HEAD"))
     private void reportKeepAlive(KeepAliveS2CPacket packet, CallbackInfo ci){
         if(GetActionDump.reportKeepAlives){
+            assert GetActionDump.MC.player != null;
             GetActionDump.MC.player.sendMessage(new LiteralText("A keepAlive (id " + packet.getId() + ") was just sent. Now might be ideal to do /actiondump."), false);
         }
     }
@@ -29,10 +26,5 @@ public class handlePackets {
         if(GetActionDump.db != null){
             ci.cancel();
         }
-    }
-
-    @Inject(method = "onDisconnect", at = @At("HEAD"))
-    private void onDisconnect(DisconnectS2CPacket packet, CallbackInfo ci){
-        GetActionDump.db = null;
     }
 }

@@ -18,7 +18,7 @@ public class GetActionDump implements ModInitializer {
 
 	public static database db;
 	public static boolean reportKeepAlives = false;
-	public static String[] overlayText = new String[]{"test", "test2"};
+	public static String[] overlayText = new String[]{};
 	public static Screen DisconnectMenu;
 
 	@Override
@@ -42,16 +42,26 @@ public class GetActionDump implements ModInitializer {
 		);
 
 		ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("reportkeepalives")
-				.then(ClientCommandManager.literal("off").executes(ctx -> {reportKeepAlives = false; MC.player.sendMessage(new LiteralText("Disabled reporting keepAlives."), false); return 0;}))
-				.then(ClientCommandManager.literal("on").executes(ctx -> {reportKeepAlives = true; MC.player.sendMessage(new LiteralText("Enabled reporting keepAlives. Once you get the keepAlive you have the most time to not time out."), false); return 0;}))
+				.then(ClientCommandManager.literal("off").executes(ctx -> {reportKeepAlives = false;
+					assert MC.player != null;
+					MC.player.sendMessage(new LiteralText("Disabled reporting keepAlives."), false); return 0;
+				}))
+				.then(ClientCommandManager.literal("on").executes(ctx -> {reportKeepAlives = true;
+					assert MC.player != null;
+					MC.player.sendMessage(new LiteralText("Enabled reporting keepAlives. Once you get the keepAlive you have the most time to not time out."), false); return 0;
+				}))
 		);
 	}
 
 	public void startActionDump(boolean colours){
-		if(colours)
+		if(colours) {
+			assert MC.player != null;
 			MC.player.sendChatMessage("/dumpactioninfo -c");
-		else
+		}
+		else {
+			assert MC.player != null;
 			MC.player.sendChatMessage("/dumpactioninfo");
+		}
 	}
 
 	public static void setMenu(Screen menu){

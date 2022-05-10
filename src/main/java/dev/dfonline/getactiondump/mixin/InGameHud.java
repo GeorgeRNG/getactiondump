@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHud {
     private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 
-
     @Inject(method = "render", at = @At("RETURN"))
     public void onRender (MatrixStack matrices, float tickDelta, CallbackInfo info) {
         int index = 0;
