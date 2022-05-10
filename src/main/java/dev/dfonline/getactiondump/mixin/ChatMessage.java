@@ -33,20 +33,21 @@ public class ChatMessage {
 					overlayText = ("§dActionDump Info:\n §0§l| §eLines: §b" + database.Lines + "\n §0§l| §eSize: §b" + database.Length + "\n §0§l| §eTime: §b" + ((float)(System.currentTimeMillis() - database.startTime.getTime()) / 1000)).split("\n");
 				}
 				if(message.equals("}")){ // to end the actiondump scanning, previous if block should have ran.
-					ci.cancel();
 					try{
 						database.save();
+						setMenu(new ActionDumpOverScreen(new LiteralText("ActionDump Complete"), new LiteralText(
+								"§eLines: §b" + database.Lines +
+										"\n§eSize: §b" + database.Length +
+										"\n§eTime: §b" + ((float)(System.currentTimeMillis() - database.startTime.getTime()) / 1000) +
+										"\n§eThe file can be found in: §b" + FileManager.Path()
+						),database.Data));
 					}
 					catch(IOException e){ // an error
-						MC.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("§cAn internal exception occurred. Check the console."), Util.NIL_UUID);
+						setMenu(new ActionDumpOverScreen(new LiteralText("An exception occurred"), new LiteralText(
+								"§eAn error occurred while saving.\n§ePress copy data to copy the stacktrace and message.\n\n§c" + e.getMessage()
+						),e.getMessage() + "\n" + e.getStackTrace()));
 						LOGGER.error(e.getMessage());
 					}
-					setMenu(new ActionDumpOverScreen(new LiteralText("ActionDump Complete"), new LiteralText(
-							"§eLines: §b" + database.Lines +
-									"\n§eSize: §b" + database.Length +
-									"\n§eTime: §b" + ((float)(System.currentTimeMillis() - database.startTime.getTime()) / 1000) +
-									"\n§eThe file can be found in: §b" + FileManager.Path()
-					),database.Data));
 					db = null;
 				}
 			}

@@ -24,7 +24,7 @@ public class handlePackets {
         }
     }
 
-    @Inject(method = "sendPacket", at = @At("HEAD"))
+    @Inject(method = "sendPacket", at = @At("HEAD"), cancellable = true)
     private void sendPacket(Packet packet, CallbackInfo ci){
         if(GetActionDump.db != null){
             ci.cancel();
