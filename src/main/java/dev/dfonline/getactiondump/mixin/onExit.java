@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class onExit {
     @Inject(method = "disconnect", at = @At("HEAD"))
     public void disconnect(CallbackInfo ci){
-        if(GetActionDump.DisconnectMenu == null){
-            GetActionDump.db = null;
+        if(GetActionDump.DisconnectMenu == null && GetActionDump.db != null){
+            GetActionDump.db.close();
         }
     }
 }

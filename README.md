@@ -1,8 +1,21 @@
 # Get Action Dump
+This took too long to make.
 
 ## How to use
-Go onto Node Beta (or any other development node) and run `/actiondump [colours]` \(\[colours\] replaces the colours with & codes.\)  
-There also is `/reportkeepalives <on|off>`, which doing the above command might work better after it reports a keepAlive. However doing /actiondump immediately on join might be better then that.
 
-The info is put into the `.minecraft/getactiondump`.
-Running the actiondump command is buggy, but doesn't do anything if dumpactioninfo like messages aren't seen.
+I connect to df with an alternate IP (**54.39.130.89**) since it seemed to diconnect me less.  
+Go onto Node Beta (or any other development node) and run `/actiondump [colours]` \(\[colours\] replaces the colours with & codes.\)  
+Wait for it to complete. There are roughly **87180 lines** and it takes me ***77 seconds*** to complete.  
+
+## After complete
+
+Once it is complete, you will be disconnected and sent to a custom menu.  
+It has three options:  
+**Main Menu**: Sends you to the Main Menu.  
+**Copy Data**: Copies the data exported to the actiondump (or error data if it's an error screen)  
+**Copy Path**: Copies the path in which getactiondump uses.  
+
+The info is put into the `.minecraft/getactiondump`.  
+The database is put into `db.json`.
+
+

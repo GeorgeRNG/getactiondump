@@ -26,4 +26,12 @@ public class database {
     public static void save() throws IOException{
         FileManager.WriteFile("db.json",Data.replaceAll("\\n$",""));
     }
+
+    public void close(){
+        GetActionDump.overlayText = new String[]{};
+        GetActionDump.reportKeepAlives = false;
+        if(GetActionDump.db != null){
+            GetActionDump.db = null;
+        }
+    }
 }

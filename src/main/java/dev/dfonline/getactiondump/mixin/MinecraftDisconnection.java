@@ -13,10 +13,14 @@ public class MinecraftDisconnection {
     private void tick(CallbackInfo ci){
         if(GetActionDump.DisconnectMenu != null){
             ci.cancel();
-            assert GetActionDump.MC.world != null;
-            GetActionDump.MC.world.disconnect();
-            GetActionDump.MC.disconnect(GetActionDump.DisconnectMenu);
-            GetActionDump.DisconnectMenu = null;
+            if(GetActionDump.MC.world != null){
+                GetActionDump.MC.world.disconnect();
+                GetActionDump.MC.disconnect(GetActionDump.DisconnectMenu);
+                if(GetActionDump.db != null){
+                    GetActionDump.db.close();
+                }
+                GetActionDump.DisconnectMenu = null;
+            }
         }
     }
 }

@@ -45,6 +45,7 @@ public class ActionDumpOverScreen extends Screen {
         this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30), 200, 20, new LiteralText("Main Menu"), (button) -> {
             assert this.client != null;
             this.client.setScreen(this.parent);
+            GetActionDump.DisconnectMenu = null;
         }));
         this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30) + ((20)), 200, 20, new LiteralText("Copy Data"), (button -> new Clipboard().setClipboard(0, clipboard))));
         this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30) + ((20 * 2)), 200, 20, new LiteralText("Copy Path"), (button -> new Clipboard().setClipboard(0, FileManager.Path().toString()))));

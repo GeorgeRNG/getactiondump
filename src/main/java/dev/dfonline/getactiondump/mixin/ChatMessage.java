@@ -39,7 +39,7 @@ public class ChatMessage {
 								"§eLines: §b" + database.Lines +
 										"\n§eSize: §b" + database.Length +
 										"\n§eTime: §b" + ((float)(System.currentTimeMillis() - database.startTime.getTime()) / 1000) +
-										"\n§eThe file can be found in: §b" + FileManager.Path()
+										"\n§eThe file can be found in:\n§b" + FileManager.Path()
 						),database.Data));
 					}
 					catch(IOException e){ // an error
@@ -48,7 +48,7 @@ public class ChatMessage {
 						),e.getMessage() + "\n" + e.getStackTrace()));
 						LOGGER.error(e.getMessage());
 					}
-					db = null;
+					db.close();
 				}
 			}
 			else { // for starting the actiondump
