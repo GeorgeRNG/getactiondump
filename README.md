@@ -7,7 +7,8 @@ This took too long to make.
 ## How to use
 
 I connect to df with an alternate IP (**54.39.130.89**) since it seemed to diconnect me less.  
-Go onto Node Beta (or any other development node) and run `/actiondump [colours]` \(\[colours\] replaces the colours with & codes.\)  
+Go onto Node Beta (or any other development node) and run `/actiondump [colours]` ([colours] replaces the colours with & codes.)  
+Because of minecraft changes to chat you have to also run `/dumpactioninfo [-c]`  (-c is colours from above)  
 Wait for it to complete. There are roughly **87180 lines** and it takes me ***77 seconds*** to complete.  
 
 ## After complete
