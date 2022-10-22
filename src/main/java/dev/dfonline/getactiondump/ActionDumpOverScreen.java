@@ -9,7 +9,6 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.Clipboard;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 
 import java.util.Objects;
@@ -42,13 +41,13 @@ public class ActionDumpOverScreen extends Screen {
         int GoodX = this.width / 2 - 100;
         int GoodY = this.height / 2 + this.reasonHeight / 2;
         Objects.requireNonNull(this.textRenderer);
-        this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30), 200, 20, new LiteralText("Main Menu"), (button) -> {
+        this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30), 200, 20, Text.literal("Main Menu"), (button) -> {
             assert this.client != null;
             this.client.setScreen(this.parent);
             GetActionDump.DisconnectMenu = null;
         }));
-        this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30) + ((20)), 200, 20, new LiteralText("Copy Data"), (button -> new Clipboard().setClipboard(0, clipboard))));
-        this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30) + ((20 * 2)), 200, 20, new LiteralText("Copy Path"), (button -> new Clipboard().setClipboard(0, FileManager.Path().toString()))));
+        this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30) + ((20)), 200, 20, Text.literal("Copy Data"), (button -> new Clipboard().setClipboard(0, clipboard))));
+        this.addDrawableChild(new ButtonWidget(GoodX, Math.min(GoodY + 9, this.height - 30) + ((20 * 2)), 200, 20, Text.literal("Copy Path"), (button -> new Clipboard().setClipboard(0, FileManager.Path().toString()))));
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {

@@ -1,10 +1,11 @@
 package dev.dfonline.getactiondump;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,38 +30,39 @@ public class GetActionDump implements ModInitializer {
 
 		LOGGER.info("Obligitory start up message.");
 
-		ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("actiondump")
-				.then(ClientCommandManager.literal("colours").executes(ctx -> {
-					startActionDump(true);
+		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+			dispatcher.register(ClientCommandManager.literal("actiondump")
+					.then(ClientCommandManager.literal("colours").executes(ctx -> {
+						startActionDump(true);
 
-					return 0;
-				})).executes(ctx -> {
-					startActionDump(false);
+						return 0;
+					})).executes(ctx -> {
+						startActionDump(false);
 
-					return 0;
-				})
-		);
-
-		ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("reportkeepalives")
-				.then(ClientCommandManager.literal("off").executes(ctx -> {reportKeepAlives = false;
-					assert MC.player != null;
-					MC.player.sendMessage(new LiteralText("Disabled reporting keepAlives."), false); return 0;
-				}))
-				.then(ClientCommandManager.literal("on").executes(ctx -> {reportKeepAlives = true;
-					assert MC.player != null;
-					MC.player.sendMessage(new LiteralText("Enabled reporting keepAlives. Once you get the keepAlive you have the most time to not time out."), false); return 0;
-				}))
-		);
+						return 0;
+					})
+			);
+			dispatcher.register(ClientCommandManager.literal("reportkeepalives")
+					.then(ClientCommandManager.literal("off").executes(ctx -> {reportKeepAlives = false;
+						assert MC.player != null;
+						MC.player.sendMessage(Text.literal("Disabled reporting keepAlives."), false); return 0;
+					}))
+					.then(ClientCommandManager.literal("on").executes(ctx -> {reportKeepAlives = true;
+						assert MC.player != null;
+						MC.player.sendMessage(Text.literal("Enabled reporting keepAlives. Once you get the keepAlive you have the most time to not time out."), false); return 0;
+					}))
+			);
+		});
 	}
 
 	public void startActionDump(boolean colours){
 		if(colours) {
 			assert MC.player != null;
-			MC.player.sendChatMessage("/dumpactioninfo -c");
+			MC.player.sendChatMessage("/dumpactioninfo -c", Text.literal("/dumpactioninfo -c"));
 		}
 		else {
 			assert MC.player != null;
-			MC.player.sendChatMessage("/dumpactioninfo");
+			MC.player.sendChatMessage("/dumpactioninfo", Text.literal("/dumpactioninfo"));
 		}
 	}
 
