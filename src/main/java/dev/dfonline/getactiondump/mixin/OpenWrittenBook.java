@@ -21,8 +21,18 @@ import java.nio.file.Files;
  */
 @Mixin(ClientPlayNetworkHandler.class)
 public class OpenWrittenBook {
+    private boolean skip = true;
+
     @Inject(method = "onOpenWrittenBook", at = @At("HEAD"))
     private void onOpenWrittenBook(OpenWrittenBookS2CPacket packet, CallbackInfo ci){
+
+        if(!GetActionDump.scrapeBooks) return;
+
+        // GeorgeRNG: I truly don't know what he means. I am just switching from 1/0 to boolean
+        skip = !skip;
+        if(!skip) return;
+
+        // this was RedCommand:
         // How the reference book works is when you click on an option in the menu,
         // it sets the reference book's content to the book you are currently
         // holding and then resetting it back to an empty book.

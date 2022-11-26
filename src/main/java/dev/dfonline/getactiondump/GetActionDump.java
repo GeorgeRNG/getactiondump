@@ -19,6 +19,7 @@ public class GetActionDump implements ModInitializer {
 
 	public static database db;
 	public static boolean reportKeepAlives = false;
+	public static boolean scrapeBooks = false;
 	public static String[] overlayText = new String[]{};
 	public static Screen DisconnectMenu;
 
@@ -50,6 +51,19 @@ public class GetActionDump implements ModInitializer {
 					.then(ClientCommandManager.literal("on").executes(ctx -> {reportKeepAlives = true;
 						assert MC.player != null;
 						MC.player.sendMessage(Text.literal("Enabled reporting keepAlives. Once you get the keepAlive you have the most time to not time out."), false); return 0;
+					}))
+			);
+
+			dispatcher.register(ClientCommandManager.literal("scrapebooks")
+					.then(ClientCommandManager.literal("off").executes(ctx -> {
+						scrapeBooks = false;
+						assert MC.player != null;
+						MC.player.sendMessage(Text.literal("Disabled book scraping."), false); return 0;
+					}))
+					.then(ClientCommandManager.literal("on").executes(ctx -> {
+						scrapeBooks = true;
+						assert MC.player != null;
+						MC.player.sendMessage(Text.literal("Enabled book scraping."), false); return 0;
 					}))
 			);
 		});
