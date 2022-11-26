@@ -10,7 +10,8 @@
     "handlePackets",
     "InGameHud",
     "MinecraftDisconnection",
-    "onExit"
+    "onExit",
+    "OpenWrittenBook"
   ],
   "injectors": {
     "defaultRequire": 1
