@@ -1,5 +1,6 @@
 package dev.dfonline.getactiondump.mixin;
 
+import dev.dfonline.getactiondump.FileManager;
 import dev.dfonline.getactiondump.GetActionDump;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.OpenWrittenBookS2CPacket;
@@ -49,17 +50,17 @@ public class OpenWrittenBook {
         String nbt = GetActionDump.MC.player.getMainHandStack().getNbt().toString(); // Get the book's NBT
 
         // Write the NBT to a file
-        Path f = GetActionDump.MC.runDirectory.toPath().resolve("GetActionDump").resolve("book.txt"); // .minecraft/GetActionDump/book.txt
+        Path path = FileManager.Path().resolve("book.txt"); // .minecraft/GetActionDump/book.txt
         try {
-            Files.writeString(f, nbt);
+            Files.writeString(path, nbt);
         } catch (IOException e) {
             e.printStackTrace(); // Obligatory try catch
             GetActionDump.MC.player.sendMessage(Text.literal("§cError while writing file"));
         }
-        // Message prompting to get the book
+        // Message prompting to open the file
         GetActionDump.MC.player.sendMessage(Text.literal("§a§l» §fReceived OpenWrittenBook packet! Click to get book! §7§o(File with nbt was saved)")
-                .setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/dfgive written_book" + nbt))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("§7§oClick to get book")))), false);
+                .setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, path.toString()))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("§7§oClick to see data")))), false);
 
     }
 }
