@@ -1,6 +1,8 @@
 package dev.dfonline.getactiondump.mixin;
 
 import dev.dfonline.getactiondump.GetActionDump;
+import dev.dfonline.getactiondump.util.ChatType;
+import dev.dfonline.getactiondump.util.ChatUtil;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.c2s.play.KeepAliveC2SPacket;
@@ -18,7 +20,7 @@ public class handlePackets {
     private void reportKeepAlive(KeepAliveS2CPacket packet, CallbackInfo ci){
         if(GetActionDump.reportKeepAlives){
             assert GetActionDump.MC.player != null;
-            GetActionDump.MC.player.sendMessage(Text.literal("A keepAlive (id " + packet.getId() + ") was just sent. Now might be ideal to do /actiondump."), false);
+            ChatUtil.sendMessage("A keepAlive (id " + packet.getId() + ") was just sent. Now might be ideal to do /actiondump.", ChatType.INFO);
         }
     }
 

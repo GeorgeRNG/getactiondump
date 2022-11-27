@@ -2,10 +2,12 @@
 [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
 
 # Get Action Dump
-Used for getting updated versions of ActionDump, this took too long to make.
+Used for getting updated versions of ActionDump + scraping books, this took too long to make.
 
 ## How to use
 Download the mod ffs, it requires Fabric API
+
+All files are located in the `.minecraft/getactiondump` directory.
 
 ### Getting ActionDump
 I connect to df with an alternate IP (**54.39.130.89**) since it seemed to disconnect me less.  
@@ -18,7 +20,10 @@ It has three options:
 **Copy Data**: Copies the data exported to the actiondump (or error data if it's an error screen)  
 **Copy Path**: Copies the path in which getactiondump uses.  
 
-The info is put into the `.minecraft/getactiondump`.  
 The database is put into `db.json`.
 
+### Scraping books (reference book)
+I detect when any book opens (by player or by DF) and then get the player's main hand item.<br/>
+This is because the reference book sets the content of itself to what you chose but then resets.
 
+The data is put into `book.txt`.

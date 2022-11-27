@@ -1,11 +1,14 @@
 package dev.dfonline.getactiondump;
 
+import dev.dfonline.getactiondump.util.ChatType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.network.message.SentMessage;
 import net.minecraft.text.Text;
+import dev.dfonline.getactiondump.util.ChatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,11 +49,11 @@ public class GetActionDump implements ModInitializer {
 			dispatcher.register(ClientCommandManager.literal("reportkeepalives")
 					.then(ClientCommandManager.literal("off").executes(ctx -> {reportKeepAlives = false;
 						assert MC.player != null;
-						MC.player.sendMessage(Text.literal("Disabled reporting keepAlives."), false); return 0;
+						ChatUtil.sendMessage("Disabled reporting keepAlives.", ChatType.INFO); return 0;
 					}))
 					.then(ClientCommandManager.literal("on").executes(ctx -> {reportKeepAlives = true;
 						assert MC.player != null;
-						MC.player.sendMessage(Text.literal("Enabled reporting keepAlives. Once you get the keepAlive you have the most time to not time out."), false); return 0;
+						ChatUtil.sendMessage("Enabled reporting keepAlives. Once you get the keepAlive you have the most time to not time out.", ChatType.INFO); return 0;
 					}))
 			);
 
@@ -58,12 +61,12 @@ public class GetActionDump implements ModInitializer {
 					.then(ClientCommandManager.literal("off").executes(ctx -> {
 						scrapeBooks = false;
 						assert MC.player != null;
-						MC.player.sendMessage(Text.literal("Disabled book scraping."), false); return 0;
+						ChatUtil.sendMessage("Disabled book scraping.", ChatType.INFO); return 0;
 					}))
 					.then(ClientCommandManager.literal("on").executes(ctx -> {
 						scrapeBooks = true;
 						assert MC.player != null;
-						MC.player.sendMessage(Text.literal("Enabled book scraping."), false); return 0;
+						ChatUtil.sendMessage("Enabled book scraping.", ChatType.INFO); return 0;
 					}))
 			);
 		});
