@@ -33,16 +33,16 @@ public class OpenWrittenBook {
         skip = !skip;
         if(!skip) return;
 
-        // this was RedCommand:
-        // How the reference book works is when you click on an option in the menu,
-        // it sets the reference book's content to the book you are currently
-        // holding and then resetting it back to an empty book.
+        // Info about how this works: (RedCommand)
+        // How the reference book works is when you click on a category in the menu,
+        // it sets the reference book's content to the category's book but then
+        // resets it back to an empty book.
         //
         // A workaround is listening to the onOpenWrittenBook packet and then
         // getting the current held book's NBT right before it gets reset.
         //
-        // After that I save the NBT to a file named "book.json" in the
-        // ReferenceBookScrape directory where you can later do whatever you want.
+        // After that I save the NBT to a file named "book.txt" in the
+        // GetActionDump directory where you can later do whatever you want.
         //
         // Also, note that the event fires twice for first opening the real
         // reference book and another time for opening the 'fake' book with the
@@ -58,7 +58,8 @@ public class OpenWrittenBook {
             GetActionDump.MC.player.sendMessage(Text.literal("§cError while writing file"));
         }
         // Message prompting to open the file
-        GetActionDump.MC.player.sendMessage(Text.literal("§a§l» §fReceived OpenWrittenBook packet! Click to get book! §7§o(File with nbt was saved)")
+        // Cant use ChatUtil class here cause no way to add click and hover events yet
+        GetActionDump.MC.player.sendMessage(Text.literal("§a§l» §fReceived OpenWrittenBook packet! Click to open the file with the NBT!")
                 .setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, path.toString()))
                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("§7§oClick to see data")))), false);
 
