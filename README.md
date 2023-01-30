@@ -2,6 +2,8 @@
 [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
 
 # Get Action Dump
+--- **DEPRECATED** ---
+This has been optimised and can be found in [CodeClient](https://github.com/DFOnline/CodeClient)  
 Used for getting updated versions of ActionDump + scraping books, this took too long to make.
 
 ## How to use
